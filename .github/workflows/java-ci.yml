@@ -1,6 +1,15 @@
+name: Java CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest   # exécution dans Linux sur GitHub Actions
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -11,9 +20,14 @@ jobs:
           distribution: temurin
           java-version: 17
 
-      - name: Build with Maven
-        run: mvn clean install
+      - name: Build project with Maven
+        run: mvn clean install -B
 
+      - name: Run tests
+        run: mvn test -B
 
       - name: Package JAR
-        run: mvn package
+        run: mvn package -B
+
+      - name: List generated JAR
+        run: ls -l target/
