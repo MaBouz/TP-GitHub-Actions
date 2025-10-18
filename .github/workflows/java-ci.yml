@@ -1,4 +1,4 @@
-name: Java CI
+name: Java CI with JAR
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest   # exécution dans Linux sur GitHub Actions
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -31,3 +31,9 @@ jobs:
 
       - name: List generated JAR
         run: ls -l target/
+
+      - name: Upload JAR as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: tp1-jar
+          path: target/tp1-1.0-SNAPSHOT.jar
